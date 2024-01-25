@@ -24,10 +24,10 @@ header
 header .logo
 {
   text-decoration: none;
-  /* text-transform: uppercase; */
   color: white;
   font-weight: 700;
   font-size: 35px;
+  letter-spacing: 3px;
 }
 header .navigation 
 {
@@ -55,16 +55,13 @@ header .cart:hover{
 {
   color: white;
 }
-.banner {
-padding: 120px 50px 50px 50px;
- /* color: red; */
- height: auto;
- display:flex;
- justify-content: space-between;
- align-items: center;
- position: relative;
- 
-
+.banner 
+{
+  padding: 120px 50px 50px 50px;
+  height: auto;
+  display:flex;
+  justify-content: space-between;
+  align-items: center;
 }
 .banner h2
 {
@@ -235,4 +232,50 @@ button:hover
 {
   cursor: pointer;
   color: black;
+}
+
+@media (max-width: 991px)
+{
+  header
+  {
+    padding: 30px 50px;
+  }
+  header .logo
+  {
+    font-weight: 500;
+    font-size: 25px;
+    
+  }
+  header .nav-item
+  {
+    font-size: 15px;
+  }
+  .banner 
+  {
+    padding: 100px 50px 50px 50px;
+    flex-direction: column;
+    /* max-width: 80vw; */
+    }
+  .banner h2
+  {
+    font-weight: 800;
+    margin-bottom: 20px;
+    letter-spacing: 3px;
+  }
+  .banner-img
+  {
+    margin-top: 30px;
+    width: 100%;
+  }
+  .container
+  {
+    margin-bottom: 30px;
+    padding: 20px 50px;
+  }
+
+  #products
+  {
+    grid-template-columns: repeat(2, 1fr);
+    grid-gap: 10px;
+  }
 }
