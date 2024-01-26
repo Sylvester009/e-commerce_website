@@ -255,7 +255,11 @@ button:hover
     padding: 100px 50px 50px 50px;
     flex-direction: column;
     /* max-width: 80vw; */
-    }
+  }
+  .banner-text
+  {
+    width: 100%;
+  }
   .banner h2
   {
     font-weight: 800;
@@ -275,7 +279,8 @@ button:hover
 
   #products
   {
-    grid-template-columns: repeat(2, 1fr);
+    grid-template-columns: repeat(1, 1fr);
     grid-gap: 10px;
+    width: 100%;
   }
 }
