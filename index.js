@@ -170,18 +170,20 @@ function displayCart (){
   else {
     document.getElementById ("cartItem").innerHTML = cart.map((items)=>
     {
-      var {image, title, price, count} =items;
+      var {image, title, price, count, id} =items;
+
       total+=price * count;
       document.getElementById('total').innerHTML = "$"+total+".00";
-      return (
-        `<div class='cart-item'>
+      return  `<div class='cart-item'>
           <div class="cart-img">
             <img class="cartimg" src='${image}'>
           </div>
           <p style= 'font-size: 12px;' >${title}</p>
           <p style= 'font-size: 12px;' > x ${count}</p>
-          <h2 style= 'font-size: 15px;' > $${price}.00</h2>`+ "<i class='fa-solid fa-trash' onclick='deleteCartItem("+ (j++) +")'></i></div>" 
-      );
-    }).join('')
+          <h2 style= 'font-size: 15px;' > $${price * count}.00</h2> 
+          <i class='fa-solid fa-trash' onclick='deleteCartItem(${id})'></i>
+          </div>`;
+      
+    }).join("");
   }
 }
