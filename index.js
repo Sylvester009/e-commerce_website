@@ -116,39 +116,56 @@ document.getElementById('products').innerHTML = categories.map((item)=>
   )
 }) .join('');
 
-let cart=[];
+let cart={};
+let totalCount = 0;
 
 function addToCart(a) {
-  cart.push({...categories[a]});
-  displayCart();
-}
-function deleteCartItem(a){
-  cart.splice(a, 1);
-  displayCart();
-}
+  const selectedProduct = categories[a];
 
-
-function displayCart (a){
-  let j = 0; total=0;
-  document.getElementById('count').innerHTML = cart.length;
-  if(cart.length == 0) {
-    document.getElementById('cartItem').innerHTML = "Your cart is empty" ;
-    document.getElementById('total').innerHTML="$ "+0+".00"
+  if (cart[selectedProduct.id]) {
+    cart[selectedProduct.id].count++;
+  } else {
+    cart[selectedProduct.id] = { ...selectedProduct, count: 1 };
   }
-  else {
-    document.getElementById ("cartItem").innerHTML = cart.map((items)=>
-    {
-      var {image, title, price} =items;
-      total=total+price;
-      document.getElementById('total').innerHTML = "$"+total+".00";
-      return (
-        `<div class='cart-item'>
-          <div class="cart-img">
-            <img class="cartimg" src='${image}'>
-          </div>
-          <p style= 'font-size: 12px;' >${title}</p>
-          <h2 style= 'font-size: 15px;' > $${price}.00</h2>`+ "<i class='fa-solid fa-trash' onclick='deleteCartItem("+ (j++) +")'></i></div>" 
-      );
-    }).join('')
+
+  totalCount++;
+  displayCart();
+}
+function deleteCartItem(id) {
+  if (cart[id]) {
+    if (cart[id].count > 1) {
+      cart[id].count--;
+    } else {
+      delete cart[id];
+    }
+    totalCount--;
+    displayCart();
+  }
+}
+
+function displayCart(a) {
+  total = 0;
+
+  document.getElementById('count').innerHTML = totalCount;
+
+  if (Object.keys(cart).length === 0) {
+    document.getElementById('cartItem').innerHTML = "Your cart is empty";
+    document.getElementById('total').innerHTML = "$ " + 0 + ".00";
+  } else {
+    document.getElementById("cartItem").innerHTML = Object.values(cart)
+      .map((item) => {
+        const { id, image, title, price, count } = item;
+        total += price * count;
+        document.getElementById('total').innerHTML = "$" + total + ".00";
+        return `<div class='cart-item'>
+                   <div class="cart-img">
+                     <img class="cartimg" src='${image}'>
+                   </div>
+                   <p style='font-size: 12px;'>${title} (Qty: ${count})</p>
+                   <h2 style='font-size: 15px;'> $${price * count}.00</h2>
+                   <i class='fa-solid fa-trash' onclick='deleteCartItem(${id})'></i>
+                 </div>`;
+      })
+      .join("");
   }
 }
